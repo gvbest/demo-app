@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk>
+
+	<log>
+		<log-base>org.zkoss</log-base>
+	</log>
+
+	<!-- Optional -->
+	<!-- <listener> <description> Monitor the statistic</description> <listener-class>de.forsthaus.sampledata.statistic.Statistic 
+		</listener-class> </listener> -->
+	<!-- 
+	<device-config>
+		<device-type>ajax</device-type>
+		<server-push-class>org.zkoss.zkmax.ui.comet.CometServerPush
+		</server-push-class>
+	</device-config>
+ 	-->
+	<!-- <desktop-config> <theme-provider-class>zkthemer.ThemeProvider </theme-provider-class> 
+		</desktop-config> -->
+
+	<!-- 
+	<library-property>    
+	  <name>org.zkoss.zul.nativebar</name>    
+	  <value>true</value>
+	</library-property>
+	 -->
+	 
+	 <!-- To enable bootstrap theme.. -->
+	 <!-- 
+	 <library-property>
+		<name>org.zkoss.zul.Button.mold</name>
+		<value>bs</value>
+	</library-property>
+	<library-property>
+		<name>org.zkoss.zul.Menupopup.mold</name>
+		<value>bs</value>
+	</library-property>
+	<library-property>
+		<name>org.zkoss.zkmax.zul.Navbar.mold</name>
+		<value>bs</value>
+	</library-property>
+	<library-property>
+		<name>org.zkoss.zul.Paging.mold</name>
+		<value>bs</value>
+	</library-property>
+	<library-property>
+		<name>org.zkoss.zul.Panel.mold</name>
+		<value>bs</value>
+	</library-property>
+	 -->
+	 
+	<!-- Listener to make sure servlet thread and ZK event thread got the same 
+		ThreadLocal values. -->
+	<!-- 
+	<listener>
+		<description>ThreadLocal Synchronization Listener
+		</description>
+		<listener-class>org.zkoss.zkplus.util.ThreadLocalListener
+		</listener-class>
+	</listener>
+
+	<preference>
+		<name>ThreadLocal</name>
+		<value>
+			org.springframework.security.context.ThreadLocalSecurityContextHolderStrategy=contextHolder;
+			org.springframework.transaction.support.TransactionSynchronizationManager=resources,synchronizations,currentTransactionName,currentTransactionReadOnly,actualTransactionActive;
+			org.springframework.orm.hibernate3.SessionFactoryUtils=deferredCloseHolder;
+			org.springframework.transaction.interceptor.TransactionAspectSupport=transactionInfoHolder;
+		</value>
+	</preference>
+	 -->
+	<!-- To enable atlantic theme!!! -->
+	<!-- 
+	<library-property>
+	    <name>org.zkoss.theme.preferred</name>
+	    <value>atlantic</value>
+	</library-property>
+	  -->
+	<!-- start SESSION REPLICATION function -->
+	<!-- needed for running a zk application in a CLUSTER -->
+	<!-- 
+	<system-config>
+		<ui-factory-class>
+			org.zkoss.zk.ui.http.SerializableUiFactory
+		</ui-factory-class>
+	</system-config>
+	 -->
+
+	<!-- Configure the error page -->
+	<!-- 
+	
+	<error-page>
+		<exception-type>java.lang.Throwable
+		</exception-type>
+		<location>/error.zul</location>
+	</error-page>
+	
+	-->
+
+	<!-- Font and Size -->
+	<language-config>
+		<addon-uri>/WEB-INF/lang-addon.xml</addon-uri>
+	</language-config>
+	
+	<!-- By default, ZK processes an event in an independent thread called the event processing thread. 
+		 Thus, the developer can suspend and resume the execution at any time, without blocking the servlet 
+		 thread from sending back the responses to the browser.
+
+		 However, it consumes more memory, especially if there are a lot suspended threads, and it may cause 
+		 some challenge to integrate with other systems that storing information at the Servlet thread's local 
+		 storage.
+
+		 ZK provides an option to let you disable the use of the event processing threads. In other words, you 
+		 can force ZK to process events all in the Servlet threads like other conventional frameworks. Of course, 
+		 you cannot suspend the execution if the Servlet thread is used.
+	 -->
+	 
+		<system-config>
+		    <disable-event-thread/>
+		</system-config>
+</zk>
+<!-- <language-config> <addon-uri>/WEB-INF/lang-addon.xml </addon-uri> </language-config> -->
+
+<!-- org.springframework.web.context.request.RequestContextHolder=requestAttributesHolder,inheritableRequestAttributesHolder; --> 
+	
