@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?page title="Eposit login" contentType="text/html;charset=UTF-8"?>
+
+<div id="divWest" style="width:100%;height:100%;margin:5px; background:url('/epositUI/images/logo.png') no-repeat;">
+    <box id="loginbox" align="center" pack="center" height="100%" width="100%" xmlns:h="http://www.w3.org/1999/xhtml">
+        <window id="win" title="e-Posit UI" style="margin:5px;" position="center,center" border="normal" apply="com.eposit.controller.CtrlAuthenticator">
+            <style src="/loginBox/loginBox.css"/>
+            <zscript>
+            	<![CDATA[
+				// parse the j_exception
+				Throwable j_exception = (Throwable) sessionScope.get("j_exception");
+				String errMsg = null;
+				if (j_exception != null) {
+					if (j_exception instanceof javax.security.auth.login.FailedLoginException) {
+						errMsg = "Username and/or the password is not right. Please, try it again.";
+					} else {
+						errMsg = "Unknown exception when logging in: " + this.j_exception + " Please, contact the admin.";
+					}
+				}
+				]]>
+            </zscript>
+
+            <hbox>
+                <vbox width="400px">
+                    <label style="font-size:12pt" value="Πληκτρολογήστε τα στοιχεία σας" />
+                    <grid>	
+                        <columns>
+                            <column width="13em"/>
+                            <column width="100%"/>
+                        </columns>
+                        <rows>
+                            <row>
+                                Όνομα χρήστη :
+                                <textbox id="j_username" name="j_username" value="${sessionScope.j_username}"
+                                                        constraint="no empty" forward="onOK=b_login.onClick" width="98%"/>
+                            </row>
+                            <row>
+                                Κωδικός :
+                                <textbox id="j_password" name="j_password" type="password" constraint="no empty" forward="onOK=b_login.onClick" width="98%"/>
+                            </row>
+                            <!-- <row>
+                                <label id="j_captchaLabel" value="Please enter these digits : 1234"/>
+                                <textbox id="j_captcha" name="j_captcha" constraint="no empty" forward="onOK=b_login.onClick" width="98%"/>
+                            </row> -->
+                        </rows>
+                    </grid>
+                    <div width="100%">
+                        <button id="b_login" sclass="loginbutton" label="Είσοδος" forward="onClick=onAuthenticate"></button>
+                    </div>
+                    
+
+                </vbox>
+                <div id="content" class="loginCont">
+
+                    <div class="activity" style="position:relative">
+                        <div class="activityLeft">
+                            <image src="/loginBox/images/b1.gif" width="2" height="320"  />
+                        </div>
+
+                        <image src="/loginBox/images/activity.gif" sclass="act" width="30" height="29"/>
+                        <label style="font-size:12pt" value="Χρήσιμες πληροφορίες"/>
+
+                        <div class="actText">
+                            <div style="margin:10px;">Για να χρησιμοποιήσετε το σύστημα E-Posit πληκτρολογήστε το όνομα χρήστη και τον κωδικό που σας έχουν δωθεί. Για την ομαλή λειτουργία του συστήματος πρέπει να έχετε: 
+                            </div>
+                            <div style="margin:10px;">
+
+                                                            - Ένα υποστηριζόμενο περιηγητή ιστού (Internet Explorer 7+, Mozilla Firefox 3+, Google Chrome)
+                            </div>
+                            <div style="margin:10px;">
+                                                            - Την μικρότερη υποστήριζόμενη ανάλυση 1024x768 για ευκολότερη περιήγηση και χρησιμοποίηση όλων των χαρακτηριστικών του συστήματος.
+                            </div>
+                            <div style="margin:10px;">
+                                                            Για τεχνικά προβλήματα μπορείτε να στείλετε e-mail στο
+                                <a href="mailto:support@kkt.gr" class="mail">E-mail</a> η να τηλεφωνήσετε στο 
+                                <div class="phoneNumber">211-1049444</div>
+                            </div>
+                        </div>
+                        <div class="activityRight">
+                            <image src="/loginBox/images/b1.gif" width="2" height="320"  />
+                        </div>
+
+                    </div>  <!-- end activity  -->
+
+                </div>   <!-- end content  -->
+
+            </hbox>
+            <!-- 
+            <div width="100%">
+                <groupbox id="cinfo" mold="3d" width="300px">
+                    <caption label="Στοιχεία"/>
+                    <label id="j_infoLabel" value="Client Data"/>
+                </groupbox>
+
+            </div>
+			 -->
+            <div if="${errMsg != null}" width="100%" style="color:red">${errMsg}</div>
+            <zscript><![CDATA[
+			j_username.focus();
+		]]>
+            </zscript>
+        </window>
+    </box>
+</div>

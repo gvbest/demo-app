@@ -1,0 +1,254 @@
+/*
+ * Login Box
+ */
+
+#content.loginCont {
+	background-color:white;
+	display:block;
+	float:left;
+	margin-bottom:0;
+	margin-top:15px;
+	min-height:350px;
+	width:100%;
+}
+
+/*
+.login  {
+	height:auto;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:45px;
+	width:320px;
+}
+
+
+#login table tbody tr td h1 {
+	color: #3D638C;
+	font-size: 20px;
+}
+
+.loginbutton {
+	border: 2px solid black;
+	background-color: #C14E2C; 
+	padding: 3px;
+	color: #ffffff;
+}
+
+
+ 
+.topLogin  {
+	float: left;
+}
+
+
+.topLeftCorner {
+	background: url("#{resource['/sys/loginBox/images:topLeftCorner.gif']}") no-repeat scroll 0 0;
+	border: none;
+	width: 7px;
+	height: 19px;
+	float: left;
+}
+
+
+.topMiddleCorner {
+	background-color: #DFE8F6;
+	width: 300px;
+	height: 19px;
+	float: left;
+}
+
+
+.topRightCorner {
+	background: url("#{resource['/sys/loginBox/images:topRightCorner.gif']}") no-repeat scroll 0 0;
+	border: none;
+	width: 7px;
+	height: 19px;
+	float: left;
+}
+
+
+.middleLogin {
+	background-color: #DFE8F6;
+	width: 314px;
+	float: left;
+}
+
+
+
+.logForm h1 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 25px;
+	color: #5473A9;
+	margin: 0;
+	margin-bottom: 15px;
+}
+
+.logForm input {
+	border: 1px solid #5473A9;
+	text-align: left;
+}
+
+.logText {
+	text-align: right;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 12px;
+	color: #5473A9;
+}
+
+
+
+.bottomLogin {
+	float: left;
+}
+
+.bottLeftCorner {
+	background: url("#{resource['/sys/loginBox/images:bottLeftCorner.gif']}") no-repeat scroll 0 0;
+	border: none;
+	width: 7px;
+	height: 19px;
+	float: left;
+}
+
+.bottMiddleCorner {
+	background-color: #DFE8F6;
+	width: 300px;
+	height: 19px;
+	float: left;
+}
+
+
+.bottRightCorner {
+	background: url("#{resource['/sys/loginBox/images:bottRightCorner.gif']}") no-repeat scroll 0 0;
+	border: none;
+	width: 7px;
+	height: 19px;
+	float: left;
+}
+*/
+
+.loginbutton {
+	border: 1px solid #5473A9;
+	background-color: #819DCF;  /*#DFE8F6;*/
+	color: #ffffff; /*#26588B;*/ /*#5473A9;*/
+	padding: 3px 4px 3px 6px;
+	margin-top: 20px;
+	font-size: 13px;
+	font-family : Tahoma,sans;
+	font-weight: bold;
+	letter-spacing: 1.5px;
+	margin: auto;
+	margin-top: 20px;
+	display:block;
+	clear: both;
+	float: left;
+}
+
+.loginbutton:hover {
+	cursor: pointer;
+	background-color: #819DCF;
+}
+
+a.loginbutton,
+a.loginbutton:link,
+a.loginbutton:visited 
+{
+	display:block;
+	width: 80px;
+	text-decoration: none;	
+}
+
+#login {
+	text-align: center;
+}
+
+.activity {
+	border-bottom:medium none;
+	border-top:2px solid #C7C7C7;
+	float:left;
+	height:280px;
+	margin-left:15px;
+	min-width:550px;
+	text-align:left;
+	width:400px;
+	position: relative;
+	
+}
+
+.activityLeft {float: left;}
+.act {vertical-align:middle;}
+
+.activity h1 {
+	background-color:#FDFBE4;
+	border-bottom:1px solid #E9E8D4;
+	color:#4A4532;
+	font-family:Verdana,Arial,Helvetica,sans-serif;
+	font-size:13px;
+	font-weight:bold;
+	margin:0;
+	padding:10px;
+}
+
+.actText {
+	color:#6D6574;
+	font-family:Verdana,Arial,Helvetica,sans-serif;
+	font-size:13px;
+	font-weight:normal;
+	padding:10px;
+}
+
+.activityRight {
+	position:absolute; 
+	top:0; 
+	right:0
+}
+
+.log {
+	float:left;
+	margin-left:30px;
+	min-width:450px;
+	text-align:left;
+	width:450px;	
+}
+
+.data {
+	clear:both;
+	color:#6F6F6F;
+	display:block;
+	font-family:Verdana,Arial,Helvetica,sans-serif;
+	font-size:13px;
+	font-weight:bold;
+	padding-bottom:5px;
+	padding-top:0;
+}
+
+.insert {
+	color:#6F6F6F;
+	display:block;
+	font-family:Verdana,Arial,Helvetica,sans-serif;
+	font-size:12px;
+	font-weight:normal;
+	padding-bottom:10px;
+	padding-top:10px;
+}
+
+.usrInput {
+	display:block;
+	float:left;
+	padding-bottom:10px;
+}
+
+.usrInput input {float:left;}
+
+.log form {float:left;}
+
+.actText a.mail {
+	color:#204476;
+	font-family:Verdana,Arial,Helvetica,sans-serif;
+	font-size:13px;
+	font-weight:normal;
+	text-decoration:underline;
+}
+
+.actText a.mail:hover {text-decoration:none;}

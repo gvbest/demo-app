@@ -1,0 +1,5 @@
+<zscript><![CDATA[
+// invalidate the session and redirect the browser to the root
+Sessions.getCurrent().invalidate();
+Executions.sendRedirect("/");
+]]></zscript>

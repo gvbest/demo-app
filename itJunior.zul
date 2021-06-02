@@ -1,0 +1,6 @@
+<?page title="Simple Employee (IT)" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Simple Employee (IT)" border="normal">
+Simple Employee (IT)!
+</window>
+</zk>

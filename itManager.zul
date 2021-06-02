@@ -1,0 +1,6 @@
+<?page title="Department Manager (IT)" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Department Manager (IT)" border="normal">
+Department Manager (IT)!
+</window>
+</zk>
