@@ -1,0 +1,734 @@
+<?page title="Department Manager (Call Center/Operation/Development)" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window id="win" border="normal" width="100%" height="1100px" apply="com.eposit.controller.CtrlDepartmentManager"> <!-- style="background:#E6D92C"> -->
+		<borderlayout id="b">
+			<north id="n" height="115px" border="none">
+				<div vflex="1">
+					<borderlayout>
+						
+						<west border="none" width="30%">
+							<image src="/images/logo_small.png"/>
+						</west>
+						
+						<center border="none">
+						</center>
+						
+						<east border="none" width="20%">
+							<div vflex="1">			
+								<hbox width="100%" height="20%" align="top" pack="end">
+									<label id="timeLabel"/>
+								
+									<timer id="timer" delay="1000" repeats="true">
+										<attribute name="onTimer">
+											Locale locale = org.zkoss.util.Locales.getCurrent();
+											java.text.DateFormat dateFormat = java.text.DateFormat.getDateTimeInstance(java.text.DateFormat.MEDIUM, java.text.DateFormat.MEDIUM, locale);
+											String strTime = dateFormat.format(java.util.Calendar.getInstance(locale).getTime());
+											timeLabel.setValue(strTime);
+										</attribute>
+									</timer>
+								</hbox>
+								<hbox width="100%" height="20%" align="top" pack="end">
+									<label id="userInfo" height="30px"/>
+								</hbox>
+								<hbox width="100%" height="30%" align="top" pack="end">
+									<toolbar height="30px">
+										<toolbarbutton id="logoutButton2" image="/images/button/logout_small.png" label="Αποσύνδεση"/>
+									</toolbar>
+									<menubar height="30px" autodrop="true">
+										<menu label="Ρυθμίσεις" image="/images/button/settings.png">
+											<menupopup>
+												<menuitem id="changeCredentials" label="Αλλαγή Κωδικού"/> <!--  onClick='doOpenWindowAsPopup("/editCredentials.zul")'/>  -->
+											</menupopup>
+										</menu>
+									</menubar>
+								</hbox>
+							</div>
+						</east>
+					</borderlayout>
+				</div>
+			</north> 
+			<center id="c0" border="none">
+				<borderlayout>
+					<center autoscroll="true" border="normal">
+						<div vflex="1"> <!-- Since in each location of the borderlayout only one child is allowed -->
+							
+							 <div id="infoDiv" width="100%" height="100%" visible="false"> 
+								<borderlayout>
+									<north>
+										<div vflex="1">
+											<image src="/images/home_small.png"/>
+											<label value=" > Γενικά > Προσωπικά Στοιχεία" />
+										</div>
+									</north>
+									<center border="none">
+										<div vflex="1" align="center">
+											<space/>
+											<tabbox width="50%" mold="accordion">
+												<tabs>
+													<tab label="Προσωπικές Πληροφορίες" />
+													<tab label="Πληροφορίες για την Εταιρεία" />
+												</tabs>
+												<tabpanels>
+													<tabpanel>
+														<grid>
+															<rows>
+																<row>	
+																	<label value="Όνομα"/>
+																	<label id="name"/>
+																</row>
+																<row>	
+																	<label value="Επώνυμο"/>
+																	<label id="surname"/>
+																</row>
+																<row>
+																	<label value="Πατρώνυμο"/>
+																	<label id="fathersName"/>
+																</row>
+																<row>
+																	<label value="ΑΦΜ"/>
+																	<label id="afm"/>
+																</row>
+																<row>
+																	<label value="ΑΜΚΑ"/>
+																	<label id="amka"/>
+																</row>
+															</rows>
+														</grid>
+													</tabpanel>
+													<tabpanel>
+														<grid>
+															<rows>
+																<row>	
+																	<label value="Τμήμα"/>
+																	<label id="department"/>
+																</row>
+																<row>	
+																	<label value="Κατηγορία"/>
+																	<label id="role"/>
+																</row>
+																<row>
+																	<label value="Διεύθυνση email"/>
+																	<label id="email"/>
+																</row>
+																<row>
+																	<label value="Ημερομηνία Πρόσληψης"/>
+																	<label id="employment"/>
+																</row>
+																<row>
+																	<label value="Υπόλοιπο Αδείας"/>
+																	<label id="currentRegular"/>
+																</row>
+																<!-- <row>
+																	<vbox pack="top">
+																		<label value="Υπόλοιπο Αδείας"/>
+																	</vbox>
+																	<grid>
+																		<columns>
+																			<column label="Κανονική" align="center"/>
+																			<column label="Ειδική" align="center"/>
+																		</columns>
+																		<rows>
+																			<row>
+																				<grid>
+																					<columns>
+																						<column label="Φετινή" align="center"/>
+																						<column label="Περσινή" align="center"/>
+																					</columns>
+																					<rows>
+																						<row>	
+																							<label id="normalCurrent"/>
+																							<label id="normalLast"/>
+																						</row>
+																					</rows>
+																				</grid>
+																				<label id="sickness"/>
+																			</row>
+																		</rows>
+																	</grid>
+																</row>  -->
+															</rows>
+														</grid>
+													</tabpanel>
+												</tabpanels>
+											</tabbox>
+										</div>
+									</center>
+									<east border="none">
+										<div vflex="1">
+											<hbox width="100%" height="90%" align="bottom" pack="end">
+												<toolbarbutton id="refreshInfoDiv" image="/images/refresh_scaled.png" height="50px"/>
+											</hbox>
+										</div>
+									</east>
+								</borderlayout>
+							</div> 
+							
+							<div id="vacationDiv" width="100%" height="100%" visible="false"> <!-- The containts that are enabled when user selects the "Vacation" option -->
+								<borderlayout>
+									<north>
+										<div vflex="1">
+											<image src="/images/home_small.png"/>
+											<label value=" > Προσωπικά Στοιχεία > Πληροφορίες Αδειών"/>
+										</div>
+									</north>
+									<center border="none">
+										<div id="listDiv" vflex="1" align="center" >
+											<!-- List with the requested vacations -->
+											<separator spacing="3%" />
+											<listbox model="${win$composer.employeePendingReq}"
+													 itemRenderer="${win$composer.pendingRenderer}"
+													 id="pendingRequests" width="80%" height="250px" 
+													 emptyMessage="Δε βρέθηκαν σχετικές εγγραφές στη βάση">
+												<auxhead>
+										            <auxheader colspan="7" label="Αιτήματα έγκρισης/ακύρωσης αδείας εν αναμονή" align="center" droppable="true"/>
+										        </auxhead>
+												<listhead>
+													<listheader label="Ημ/νία Έναρξης" align="center" valign="middle" sort="auto(start_date)"/>
+													<listheader label="Ημ/νία Λήξης" align="center" valign="middle" sort="auto(end_date)"/>
+													<listheader label="Διάρκεια" align="center" valign="middle" sort="auto(durance)"/>
+													<listheader label="Είδος" align="center" valign="middle" sort="auto(type.type)"/>
+													<listheader label="Ημ/νία Καταχώρησης" align="center" valign="middle" sort="auto(creation_date)"/>
+													<listheader label="Κατάσταση Αιτήματος" align="center" valign="middle" sort="auto(status.description)"/>
+													<listheader label="Ενημερώθηκα" align="center" valign="middle"/>
+													<!-- <listheader label="Αίτημα" align="center" valign="middle"/>  -->
+												</listhead>
+											</listbox>
+											<separator spacing="0.5%" />
+											<div width="80%" vflex="1" align="right">
+												<hbox>
+													<button id="cancelRequestOnPending" image="/images/button/delete.png" label="Ακύρωσης Αιτήματος" disabled="true"/>
+												</hbox>
+											</div>
+											
+											<!-- Button to request new vacation -->
+											<separator spacing="1%" />
+											<div>
+												<toolbarbutton id="vacRequest" image="/images/travel_scaled.png" vflex="1" label="Αίτηση Αδείας" orient="vertical"/>
+											</div>
+											
+											<!-- List containing the resolved vacations -->
+											<separator spacing="3%" />
+											<listbox model="${win$composer.employeeResolvedReq}"
+													 itemRenderer="${win$composer.resolvedRenderer}"
+													 id="resolvedRequests" width="80%" height="250px" 
+													 emptyMessage="Δε βρέθηκαν σχετικές εγγραφές στη βάση">
+												<auxhead>
+										            <auxheader colspan="6" label="Διευθετημένα αιτήματα αδείας" align="center"/>
+										        </auxhead>
+												<listhead>
+													<listheader label="Ημ/νία Έναρξης" align="center" valign="middle" sort="auto(start_date)"/>
+													<listheader label="Ημ/νία Λήξης" align="center" valign="middle" sort="auto(end_date)"/>
+													<listheader label="Διάρκεια" align="center" valign="middle" sort="auto(durance)"/>
+													<listheader label="Είδος" align="center" valign="middle" sort="auto(type.type)"/>
+													<listheader label="Ημ/νία Καταχώρησης" align="center" valign="middle" sort="auto(creation_date)"/>
+													<listheader label="Κατάσταση Αιτήματος" align="center" valign="middle" sort="auto(status.description)"/>
+												</listhead>
+											</listbox>
+											<separator spacing="0.5%" />
+											<div width="80%" vflex="1" align="right">
+												<hbox>
+													<button id="cancelRequest" image="/images/button/delete.png" label="Αίτηση Ακύρωσης" disabled="true"/>
+												</hbox>
+											</div>
+										</div>
+									</center>
+									<east border="none">
+										<div vflex="1">
+											<hbox width="100%" height="90%" align="bottom" pack="end">
+												<toolbarbutton id="refreshVacationDiv" image="/images/refresh_scaled.png" height="50px"/>
+											</hbox>
+										</div>
+									</east>
+								</borderlayout>
+							</div>
+							
+							<!--  <div id="employeeInfoDiv" width="100%" height="100%" visible="false"> 
+								<borderlayout>
+									<north>
+										<div vflex="1">
+											<image src="/images/home_small.png"/>
+											<label value=" > Διαχείρηση Τμήματος > Στοιχεία Προσωπικού" />
+										</div>
+									</north>
+									<west border="none" width="15%">
+										<div vflex="1" align="center">
+											<separator spacing="12%" />
+											<label value="Υπάλληλος Τμήματος:" />
+											<selectbox
+												id="employeeSelectBox"
+												model="${win$composer.employeesModel}">
+												<template name="model">
+													<label value="${each.name} ${each.surname}" />
+												</template>
+											</selectbox>
+										</div>
+									</west>
+									<center border="none">
+										<div vflex="1" align="center">
+											<separator spacing="2%" />
+											<auxhead>
+												<auxheader label="Προσωπικές Πληροφορίες" align="center" />
+											</auxhead>
+											<grid width="60%">
+												<rows>
+													<row>
+														<label value="Όνομα" />
+														<label id="emplName" value="-" />
+													</row>
+													<row>
+														<label value="Επώνυμο" />
+														<label id="emplSurname" value="-" />
+													</row>
+													<row>
+														<label value="Πατρώνυμο" />
+														<label id="emplFathersName" value="-" />
+													</row>
+													<row>
+														<label value="ΑΦΜ" />
+														<label id="emplAfm" value="-" />
+													</row>
+													<row>
+														<label value="ΑΜΚΑ" />
+														<label id="emplAmka" value="-" />
+													</row>
+												</rows>
+											</grid>
+											<auxhead>
+												<auxheader
+													label="Πληροφορίες για την Εταιρεία" align="center" />
+											</auxhead>
+											<grid width="60%">
+												<rows>
+													<row>
+														<label value="Τμήμα" />
+														<label id="emplDepartment" value="-" />
+													</row>
+													<row>
+														<label value="Κατηγορία" />
+														<label id="emplRole" value="-" />
+													</row>
+													<row>
+														<label value="Ημερομηνία Πρόσληψης" />
+														<label id="emplEmployment" value="-" />
+													</row>
+													<row>
+														<vbox pack="top">
+															<label value="Υπόλοιπο Αδείας" />
+														</vbox>
+														<grid>
+															<columns>
+																<column label="Κανονική" align="center" />
+																<column label="Ειδική" align="center" />
+															</columns>
+															<rows>
+																<row>
+																	<grid>
+																		<columns>
+																			<column label="Φετινή" align="center" />
+																			<column label="Περσινή" align="center" />
+																		</columns>
+																		<rows>
+																			<row>
+																				<label id="emplNormalCurrent" value="-" />
+																				<label id="emplNormalLast" value="-" />
+																			</row>
+																		</rows>
+																	</grid>
+																	<label id="emplSickness" value="-" />
+																</row>
+															</rows>
+														</grid>
+													</row>
+												</rows>
+											</grid>
+										</div>
+									</center>
+									<east border="none">
+										<div vflex="1">
+											<hbox width="100%" height="90%" align="bottom" pack="end">
+												<toolbarbutton id="refreshEmployeeInfoDiv" image="/images/refresh_scaled.png" height="50px"/>
+											</hbox>
+										</div>
+									</east>
+								</borderlayout>
+							</div> -->
+							
+							<div id="employeeRequestsDiv" width="100%" height="100%" visible="false"> <!-- The containts that are enabled when user selects the "Validation" option -->
+								<borderlayout>
+									<north>
+										<div vflex="1">
+											<image src="/images/home_small.png"/>
+											<label value=" > Διαχείριση Τμήματος > Αιτήματα Αδειών Προσωπικού"/>
+										</div>
+									</north>
+									<center border="none">
+										<div id="listReqDiv" vflex="1">
+											<!-- List with the requested vacations -->
+											<separator spacing="3%" />
+											<div align="center">
+												<listbox model="${win$composer.employeeRequestsEnriched}"
+														 itemRenderer="${win$composer.departmentPendingRenderer}"
+														 id="pendingVacRequests" width="80%" height="500px" 
+														 emptyMessage="Δε βρέθηκαν σχετικές εγγραφές στη βάση" >
+													<auxhead>
+											            <auxheader colspan="8" label="Αιτήματα αδείας προσωπικού εν αναμονή" align="center" droppable="true"/>
+											        </auxhead>
+													<listhead>
+														<listheader label="Όνομα" align="center" valign="middle" sort="auto(vacRequest.userDetails.name)"/>
+														<listheader label="Επώνυμο" align="center" valign="middle" sort="auto(vacRequest.userDetails.surname)"/>
+														<listheader label="Τμήμα" align="center" valign="middle" sort="auto(vacRequest.userDetails.department.department)"/>
+														<listheader label="Ημ/νία Έναρξης" align="center" valign="middle" sort="auto(vacRequest.start_date)"/>
+														<listheader label="Ημ/νία Λήξης" align="center" valign="middle" sort="auto(vacRequest.end_date)"/>
+														<listheader label="Διάρκεια" align="center" valign="middle" sort="auto(vacRequest.durance)"/>
+														<listheader label="Είδος" align="center" valign="middle" sort="auto(vacRequest.type.type)"/>
+														<listheader label="Ημ/νία Καταχώρησης" align="center" valign="middle" sort="auto(vacRequest.creation_date)"/>
+													</listhead>
+												</listbox>
+											</div>
+											
+											<separator spacing="1px" />
+											<div align="center">
+												<div width="80%" align="left">
+													<listbox id="candidateLb" rows="1" width="70%">
+														<listitem>
+											                <listcell style="background-color:yellow"/>
+											                <listcell label="Η άδεια συμπίπτει χρονικά με άλλη/ες εντός του πίνακα"/>
+											                <listcell style="background-color:orange"/>
+											                <listcell label="Η άδεια συμπίπτει χρονικά με κάποια/ες ήδη εγκεκριμένη/ες"/>
+											            </listitem>
+											    	</listbox>
+												</div>
+											</div>
+											
+											<!-- Buttons to accept/reject new vacation -->
+											<separator spacing="2%" />
+											<div align="center">
+												<hbox>
+												<button id="accept" image="/images/form/ok.png" label="Έγκριση" disabled="true"/>
+												<separator spacing="30px"/>
+												<button id="reject" image="/images/form/cancel.png" label="Απόρριψη" disabled="true"/>
+												</hbox>
+											</div>
+										</div>
+									</center>
+									<east border="none">
+										<div vflex="1">
+											<hbox width="100%" height="90%" align="bottom" pack="end">
+												<toolbarbutton id="refreshVacationReqDiv" image="/images/refresh_scaled.png" height="50px"/>
+											</hbox>
+										</div>
+									</east>
+								</borderlayout>
+							</div>
+							
+							<div id="acceptedVacDiv" width="100%" height="100%" visible="false"> <!-- The containts that are enabled when user selects the "Validation" option -->
+								<borderlayout>
+									<north>
+										<div vflex="1">
+											<image src="/images/home_small.png"/>
+											<label value=" > Διαχείριση Προσωπικού > Εγκεκριμένες Άδειες"/>
+										</div>
+									</north>
+									<west border="none" width="20%">
+										<div vflex="1" align="center">
+										
+											<separator spacing="5%"/>
+											<label value="Έτος:" />
+											<separator/>
+											<selectbox
+												id="yearSelectBoxAcc"
+												model="${win$composer.yearModel}">
+												<template name="model">
+													<label value="${each.year}"/>
+												</template>
+											</selectbox>
+										
+											<separator spacing="10%" />
+											<label value="Μήνας:" />
+											<separator/>
+											<selectbox
+												id="monthSelectBoxAcc"
+												model="${win$composer.monthModel}">
+												<template name="model">
+													<label value="${each.monthdescription}"/>
+												</template>
+											</selectbox>
+										</div>
+									</west>
+									<center border="none">
+										<div id="listAcceptedDiv" vflex="1" align="center" >
+											<!-- List with the requested vacations -->
+											<separator spacing="3%" />
+											<listbox model="${win$composer.employeeAcceptedVac}"
+													 itemRenderer="${win$composer.departmentAcceptedRenderer}"
+													 id="acceptedVacRequests" width="95%" height="550px" 
+													 emptyMessage="Δε βρέθηκαν σχετικές εγγραφές στη βάση">
+												<auxhead>
+										            <auxheader colspan="34" label="Εγκεκριμένα αιτήματα αδείας προσωπικού ανά μήνα" align="center" droppable="true"/>
+										        </auxhead>
+												<listhead>
+													<listheader label="Όνομα" align="center" valign="middle" sort="auto(userDetails.name)"/>
+													<listheader label="Επώνυμο" align="center" valign="middle" sort="auto(userDetails.surname)"/>
+													<listheader label="Τμήμα" align="center" valign="middle" sort="auto(userDetails.department.department)"/>
+													<listheader label="1" align="center" valign="middle" width="2.5%"/>
+													<listheader label="2" align="center" valign="middle" width="2.5%"/>
+													<listheader label="3" align="center" valign="middle" width="2.5%"/>
+													<listheader label="4" align="center" valign="middle" width="2.5%"/>
+													<listheader label="5" align="center" valign="middle" width="2.5%"/>
+													<listheader label="6" align="center" valign="middle" width="2.5%"/>
+													<listheader label="7" align="center" valign="middle" width="2.5%"/>
+													<listheader label="8" align="center" valign="middle" width="2.5%"/>
+													<listheader label="9" align="center" valign="middle" width="2.5%"/>
+													<listheader label="10" align="center" valign="middle" width="2.5%"/>
+													<listheader label="11" align="center" valign="middle" width="2.5%"/>
+													<listheader label="12" align="center" valign="middle" width="2.5%"/>
+													<listheader label="13" align="center" valign="middle" width="2.5%"/>
+													<listheader label="14" align="center" valign="middle" width="2.5%"/>
+													<listheader label="15" align="center" valign="middle" width="2.5%"/>
+													<listheader label="16" align="center" valign="middle" width="2.5%"/>
+													<listheader label="17" align="center" valign="middle" width="2.5%"/>
+													<listheader label="18" align="center" valign="middle" width="2.5%"/>
+													<listheader label="19" align="center" valign="middle" width="2.5%"/>
+													<listheader label="20" align="center" valign="middle" width="2.5%"/>
+													<listheader label="21" align="center" valign="middle" width="2.5%"/>
+													<listheader label="22" align="center" valign="middle" width="2.5%"/>
+													<listheader label="23" align="center" valign="middle" width="2.5%"/>
+													<listheader label="24" align="center" valign="middle" width="2.5%"/>
+													<listheader label="25" align="center" valign="middle" width="2.5%"/>
+													<listheader label="26" align="center" valign="middle" width="2.5%"/>
+													<listheader label="27" align="center" valign="middle" width="2.5%"/>
+													<listheader label="28" align="center" valign="middle" width="2.5%"/>
+													<listheader label="29" align="center" valign="middle" width="2.5%"/>
+													<listheader label="30" align="center" valign="middle" width="2.5%"/>
+													<listheader label="31" align="center" valign="middle" width="2.5%"/>
+												</listhead>
+											</listbox>
+
+											<separator spacing="10px"/>
+											
+											<div vflex="1" align="center" width="60%" >
+													<listbox id="candidateLb2" rows="1">
+												            <listitem>
+												                <listcell style="background-color:green; text-align:center; color:white" label="Κανονική Άδεια"/>
+												                <listcell style="background-color:orange; text-align:center; color:white" label="Ειδική Άδεια"/>
+												                <listcell style="background-color:red; text-align:center; color:white" label="Άδεια Ασθένειας"/>
+												            </listitem>
+												    </listbox>
+												    <listbox id="candidateLb3" rows="1">
+												            <listitem>
+												            	<listcell style="background-color:pink; text-align:center; color:white" label="Άδεια Εγκυμοσύνης"/>
+												            	<listcell style="background-color:purple; text-align:center; color:white" label="Άδεια Ειδικού Σκοπού"/>
+												            	<listcell style="background-color:brown; text-align:center; color:white" label="Αναστολή Σύμβασης"/>
+												            </listitem>
+												    </listbox>
+												    <listbox id="candidateLb4" rows="1">
+												            <listitem>
+												                <listcell style="background-color:yellow; text-align:center; color:black" label="Αργία"/>
+												                <listcell style="background-color:grey; text-align:center; color:white" label="Σ/Κ"/>
+												                <listcell style="background-color:black; text-align:center; color:white" label="Εκτός Μήνα"/>
+												            </listitem>
+												    </listbox>
+											    </div>
+										</div>
+									</center>
+								</borderlayout>
+							</div>
+							
+							<div id="attendanceDiv" width="100%" height="100%" visible="false"> <!-- The containts that are enabled when user selects the "Validation" option -->
+								<borderlayout>
+									<north>
+										<div vflex="1">
+											<image src="/images/home_small.png"/>
+											<label value=" > Διαχείριση Προσωπικού > Παρουσίες και Άδειες Εργαζομένων"/>
+										</div>
+									</north>
+									<west border="none" width="20%">
+										<div vflex="1" align="center">
+										
+											<separator spacing="5%"/>
+											<label value="Έτος:" />
+											<separator/>
+											<selectbox
+													id="yearSelectBoxAtt"
+													model="${win$composer.yearModel}">
+												<template name="model">
+													<label value="${each.year}"/>
+												</template>
+											</selectbox>
+										
+											<separator spacing="10%" />
+											<label value="Μήνας:" />
+											<separator/>
+											<selectbox
+												id="monthSelectBoxAtt"
+												model="${win$composer.monthModel}">
+												<template name="model">
+													<label value="${each.monthdescription}"/>
+												</template>
+											</selectbox>
+										</div>
+									</west>
+									<center border="none">
+										<div id="listAttendanceDiv" vflex="1" align="center">
+												<timer id="autoRefreshTimer" delay="120000" repeats="true" />
+												
+												<!-- List with the requested vacations -->
+												<separator spacing="3%" />
+												<listbox model="${win$composer.employeeAttendance}"
+														 itemRenderer="${win$composer.departmentAttendanceRenderer}"
+														 id="attendanceLb" width="95%" height="550px" 
+														 emptyMessage="Δε βρέθηκαν σχετικές εγγραφές στη βάση">
+													<auxhead>
+											            <auxheader colspan="34" label="Παρουσίες και άδειες (εγκεκριμένες + εκκρεμείς) προσωπικού ανά τμήμα και μήνα" align="center" droppable="true"/>
+											        </auxhead>
+													<listhead>
+														<listheader label="Όνομα" align="center" valign="middle" sort="auto(userDetails.name)"/>
+														<listheader label="Επώνυμο" align="center" valign="middle" sort="auto(userDetails.surname)"/>
+														<listheader label="Τμήμα" align="center" valign="middle" sort="auto(userDetails.department.department)"/>
+														<listheader label="1" align="center" valign="middle" width="2.5%"/>
+														<listheader label="2" align="center" valign="middle" width="2.5%"/>
+														<listheader label="3" align="center" valign="middle" width="2.5%"/>
+														<listheader label="4" align="center" valign="middle" width="2.5%"/>
+														<listheader label="5" align="center" valign="middle" width="2.5%"/>
+														<listheader label="6" align="center" valign="middle" width="2.5%"/>
+														<listheader label="7" align="center" valign="middle" width="2.5%"/>
+														<listheader label="8" align="center" valign="middle" width="2.5%"/>
+														<listheader label="9" align="center" valign="middle" width="2.5%"/>
+														<listheader label="10" align="center" valign="middle" width="2.5%"/>
+														<listheader label="11" align="center" valign="middle" width="2.5%"/>
+														<listheader label="12" align="center" valign="middle" width="2.5%"/>
+														<listheader label="13" align="center" valign="middle" width="2.5%"/>
+														<listheader label="14" align="center" valign="middle" width="2.5%"/>
+														<listheader label="15" align="center" valign="middle" width="2.5%"/>
+														<listheader label="16" align="center" valign="middle" width="2.5%"/>
+														<listheader label="17" align="center" valign="middle" width="2.5%"/>
+														<listheader label="18" align="center" valign="middle" width="2.5%"/>
+														<listheader label="19" align="center" valign="middle" width="2.5%"/>
+														<listheader label="20" align="center" valign="middle" width="2.5%"/>
+														<listheader label="21" align="center" valign="middle" width="2.5%"/>
+														<listheader label="22" align="center" valign="middle" width="2.5%"/>
+														<listheader label="23" align="center" valign="middle" width="2.5%"/>
+														<listheader label="24" align="center" valign="middle" width="2.5%"/>
+														<listheader label="25" align="center" valign="middle" width="2.5%"/>
+														<listheader label="26" align="center" valign="middle" width="2.5%"/>
+														<listheader label="27" align="center" valign="middle" width="2.5%"/>
+														<listheader label="28" align="center" valign="middle" width="2.5%"/>
+														<listheader label="29" align="center" valign="middle" width="2.5%"/>
+														<listheader label="30" align="center" valign="middle" width="2.5%"/>
+														<listheader label="31" align="center" valign="middle" width="2.5%"/>
+													</listhead>
+												</listbox>
+												
+												<separator spacing="10px"/>
+												
+												<div vflex="1" align="center" width="60%" >
+												    <listbox id="legend1" rows="1">
+												            <listitem>
+												                <listcell style="background-color:green; text-align:center; color:white" label="Κανονική Άδεια"/>
+												                <listcell style="background-color:orange; text-align:center; color:white" label="Ειδική Άδεια"/>
+												                <listcell style="background-color:red; text-align:center; color:white" label="Άδεια Ασθένειας"/>
+												            </listitem>
+												    </listbox>
+												    <listbox id="legend2" rows="1">
+												            <listitem>
+												            	<listcell style="background-color:pink; text-align:center; color:white" label="Άδεια Εγκυμοσύνης"/>
+												            	<listcell style="background-color:purple; text-align:center; color:white" label="Άδεια Ειδικού Σκοπού"/>
+												                <listcell style="background-color:brown; text-align:center; color:white" label="Αναστολή Σύμβασης"/>
+												            </listitem>
+												    </listbox>
+												    <listbox id="legend3" rows="1">
+												            <listitem>
+												                <listcell style="background-color:yellow; text-align:center; color:black" label="Αργία"/>
+												                <listcell style="background-color:grey; text-align:center; color:white" label="Σ/Κ"/>
+												                <listcell style="background-color:black; text-align:center; color:white" label="Εκτός Μήνα"/>
+												            </listitem>
+												    </listbox>
+												    <listbox id="legend4" rows="1">
+												            <listitem>
+												                <listcell image="/images/custom/black_dot.png" label="Φυσική Παρουσία" style="text-align:center; color:black"/>
+												                <listcell image="/images/custom/blue_dot.png" label="Εξ Αποστάσεως Εργασία" style="text-align:center; color:black"/>
+												            </listitem>
+												    </listbox>
+											    </div>
+										</div>
+									</center>
+								</borderlayout>
+							</div>
+						</div>
+					</center>
+					
+					<west id="west" title="Μπάρα Πλοήγησης" collapsible="true" autoscroll="true" width="15%" open="true" border="normal">
+						<div align="center" vflex="1">   
+							<borderlayout width="100%" height="100%">
+								<center border="none">
+									<div style="background:#f2f2f2;" height="100%">
+										<space/>
+										<panel id="generalPanel" title="Γενικά" width="90%" collapsible="true" visible="true">
+											<panelchildren>
+												<tree id="tree"> <!-- onSelect='selectView()'>  -->
+													<treecols>
+														<treecol label="" />
+													</treecols>
+													<treechildren>
+														<treeitem id="treeInfo">
+															<treerow id="treeInfoRow">
+																<treecell label="Προσωπικά Στοιχεία" height="40px" />
+															</treerow>
+														</treeitem> 
+														<treeitem id="treeVacation">
+															<treerow id="treeVacationRow">
+																<treecell label="Πληροφορίες Αδειών" height="40px" />
+															</treerow>
+														</treeitem>
+													</treechildren>
+												</tree>
+											</panelchildren>
+										</panel>
+										<separator spacing="10%"/>
+										<panel id="departmentManagementPanel" title="Διαχείριση Τμήματος" width="90%" collapsible="true" visible="true">
+											<panelchildren>
+												<tree id="treeManagement"> <!-- onSelect='selectView()'>  -->
+													<treecols>
+														<treecol label="" />
+													</treecols>
+													<treechildren>
+														<!-- <treeitem id="treePersonel">
+															<treerow id="treePersonelRow">
+																<treecell label="Στοιχεία Προσωπικού" height="40px" />
+															</treerow>
+														</treeitem> -->
+														<treeitem id="treeValidation">
+															<treerow id="treeValidationRow">
+																<treecell id="treeVacDynamic" label="Αιτήματα Αδειών" height="40px" />
+															</treerow>
+														</treeitem>
+														<treeitem id="treeAccepted">
+															<treerow id="treeAcceptedRow">
+																<treecell id="treeVacAccepted" label="Εγκεκριμένες Άδειες" height="40px" />
+															</treerow>
+														</treeitem>
+														<treeitem id="treeAttendance">
+															<treerow id="treeAttendanceRow">
+																<treecell id="treeattendance" label="Παρουσίες και Άδειες Εργαζομένων" height="40px" />
+															</treerow>
+														</treeitem>
+													</treechildren>
+												</tree>
+											</panelchildren>
+										</panel>
+									</div>
+								</center>
+								
+								<south border="none" size="7%">
+									<div style="background:#f2f2f2;" height="100%">
+										<toolbarbutton id="logoutButton" image="/images/button/logout_small.png" label="Αποσύνδεση"/>
+									</div>
+								</south>
+							</borderlayout>
+						</div>
+					</west>
+				</borderlayout>
+			</center>
+		</borderlayout>
+	</window>
+</zk>

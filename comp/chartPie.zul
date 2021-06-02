@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hbox>
+	<vbox>
+		<toolbar>
+			<toolbarbutton label="Toogle 3D"
+				onClick="piechart.setThreeD(!piechart.isThreeD())" />
+		</toolbar>
+		<chart id="piechart" title="Pie Chart" width="500" height="250"
+			type="pie" threeD="false" fgAlpha="128" onClick="drilldown()" />
+	</vbox>
+</hbox>

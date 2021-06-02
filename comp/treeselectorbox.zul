@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hbox>
+	<bandbox id="bd" mold="rounded" autodrop="true"
+		forward="onOpen=onRefresh">
+		<bandpopup>
+			<tree id="selectorBrowser" height="248px" width="300px"
+				forward="onSelect=onSelectionChanged">
+				<treecols sizable="true">
+				</treecols>
+				<treechildren>
+
+				</treechildren>
+			</tree>
+			<paging id="selectorPaging" forward="onPaging=onRefresh"></paging>
+
+		</bandpopup>
+
+	</bandbox>
+</hbox>

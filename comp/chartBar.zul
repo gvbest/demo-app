@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hbox>
+	<vbox>
+		<toolbar>
+			<toolbarbutton label="Toogle 3D"
+				onClick="chart.setThreeD(!chart.isThreeD())" />
+			<combobox id="type"
+				onChange="chart.setType(type.getSelectedItem().getLabel());">
+				<comboitem label="bar" />
+				<comboitem label="line" />
+				<comboitem label="area" />
+				<comboitem label="stacked_bar" />
+				<comboitem label="stacked_area" />
+				<comboitem label="waterfall " />
+			</combobox>
+			<combobox id="resolution" onChange="chart.invalidate();">
+				<comboitem label="Day" />
+				<comboitem label="Week" />
+				<comboitem label="Month" />
+				<comboitem label="Year" />
+			</combobox>
+		</toolbar>
+
+		<chart id="chart" title="Chart" width="400" height="300"
+			type="bar" threeD="false" fgAlpha="128" onClick="drilldown()">
+
+		</chart>
+	</vbox>
+</hbox>

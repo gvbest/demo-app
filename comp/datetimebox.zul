@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grid>
+	<columns>
+		<column  width="50%" />
+		<column  width="50%" />
+	</columns>
+	<rows>
+		<row>
+			<datebox id="date" lenient="true" />
+			<timebox id="time" format="HH:mm:ss" mold="rounded" width="100px"/>
+		</row>
+	</rows>
+</grid>

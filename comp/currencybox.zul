@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<combobox id="dacurrency" value="EUR">
+    <comboitem id="EUR" value="EUR" label="EUR" image="/images/currency/eur.gif"/>
+    <comboitem id="USD" value="USD" label="USD" image="/images/currency/usd.gif"/>
+</combobox>

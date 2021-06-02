@@ -1,0 +1,110 @@
+<?page contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window id="editUserDetails" border="normal" sizable="true" closable="true" width="600px" height="700px" title="Στοιχεία Υπαλλήλου"  apply="com.eposit.controller.CtrlFrmEditUserDetails">
+		<div vflex="1" align="center">
+			<auxhead>
+				<auxheader label="Προσωπικές Πληροφορίες" align="center" />
+			</auxhead>
+			<grid width="95%">
+				<rows>
+					<row>
+						<label value="Όνομα" />
+						<textbox id="emplName" width="95%"/>
+					</row>
+					<row>
+						<label value="Επώνυμο" />
+						<textbox id="emplSurname" width="95%"/>
+					</row>
+					<row>
+						<label value="Πατρώνυμο" />
+						<textbox id="emplFathersName" width="95%"/>
+					</row>
+					<row>
+						<label value="ΑΦΜ" />
+						<textbox id="emplAfm" width="95%"/>
+					</row>
+					<row>
+						<label value="ΑΜΚΑ" />
+						<textbox id="emplAmka" width="95%"/>
+					</row>
+				</rows>
+			</grid>
+			<auxhead>
+				<auxheader label="Πληροφορίες σχετικές με την Εταιρεία" align="center" />
+			</auxhead>
+			<grid width="95%" >
+				<rows>
+					<row>
+						<label value="Τμήμα" />
+						<selectbox id="emplDepartmentSelectbox"
+							   model="${reqWin$composer.emplDepartmentModel}"
+							   width = "100%">
+							<template name="model">
+								<label value="${each.department}"/>
+							</template>
+						</selectbox>
+					</row>
+					<row>
+						<label value="Κατηγορία" />
+						<selectbox id="emplRoleSelectbox"
+							   model="${reqWin$composer.emplRoleModel}"
+							   width = "100%">
+							<template name="model">
+								<label value="${each.category}"/>
+							</template>
+						</selectbox>
+					</row>
+					<row>
+						<label value="Διεύθυνση e-mail" />
+						<textbox id="emplEmail" width="95%"/>
+					</row>
+					<row>
+						<label value="Ημερομηνία Πρόσληψης" />
+						<datebox id="employmentDate" format="dd/MM/yyyy" width="95%"/>
+					</row>
+					<row>
+						<label value="Access Card" />
+						<textbox id="emplAccessCard" width="95%"/>
+					</row>
+					<row>
+						<vbox pack="top">
+							<label value="Υπόλοιπο Αδείας" />
+						</vbox>
+						<grid>
+							<columns>
+								<column label="Κανονική" align="center" />
+								<column label="Ειδική" align="center" />
+							</columns>
+							<rows>
+								<row>
+									<grid>
+										<columns>
+											<column label="Φετινή" align="center" />
+											<column label="Περσινή" align="center" />
+										</columns>
+										<rows>
+											<row>
+												<textbox id="emplNormalCurrent" width="80%"/>
+												<textbox id="emplNormalLast" width="80%"/>
+											</row>
+										</rows>
+									</grid>
+									<textbox id="emplSickness" width="25%"/>
+								</row>
+							</rows>
+						</grid>
+					</row>
+					<row>
+						<label value="Ενεργός Υπάλληλος" />
+						<checkbox id="activeCheckbox"/>
+					</row>
+				</rows>
+			</grid>
+		
+		    <separator spacing="20px"/>
+		    
+			<button id="save" image="/images/form/ok.png" label="Kαταχώρηση"/>
+			<button id="cancel" image="/images/form/cancel.png" label="Ακύρωση"/>
+		</div>
+	</window>
+</zk>

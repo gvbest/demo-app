@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+	<window height="800px"/> <!-- apply="com.eposit.controller.CtrlHome">  -->
+
+		<portallayout height="800px">
+			<portalchildren width="300px">
+				<panel title="Τρέχουσα Κατάσταση Ορίων">
+					<panelchildren>
+					<groupbox>
+					<caption>
+                        Με κλικ άνοιγμα/κλείσιμο
+                     </caption>
+						<listbox id="nodeplafonlimits" mold="paging" pageSize="15">
+							<listhead sizable="true">
+								<listheader label="Σημείο" sort="auto">
+									<textbox id="filterName" forward="onChange=onRefreshcurrentplafonlimits" />
+								</listheader>
+								<listheader label="Ποσοστό" width="60px" sort="auto" />
+								<listheader label="Τρέχων" width="60px" sort="auto" />
+								<listheader label="Όριο" width="60px" sort="auto" />
+							</listhead>
+						</listbox>
+						</groupbox>
+						<button id="refreshplafonlimits" tooltiptext="Κάνε κλικ για ανανέωση" label="Ανανέωση" />
+
+					</panelchildren>
+				</panel>
+			
+			</portalchildren>
+
+			<portalchildren width="400px">
+				<panel title="Σημερινές Κινήσεις (*)">
+					<panelchildren>
+					<groupbox>
+					<caption>
+                        Με κλικ άνοιγμα/κλείσιμο
+                     </caption>
+						<listbox id="todaytransactions" mold="paging" pageSize="8">
+							<listhead sizable="true">
+								<listheader label="Ημ/νια" width="70px"/>
+								<listheader label="Κωδικός"  width="34px"/>
+								<listheader label="Προϊόν"/>
+								<listheader label="Κατάσταση" width="37px"/>
+								<listheader label="Ποσότητα" width="40px"/>
+								<listheader label="Αξία" width="50px"/>
+							</listhead>
+						</listbox>
+						</groupbox>
+						<button id="refreshtodaytrans" tooltiptext="Κάνε κλικ για ανανέωση" label="Ανανέωση" />
+						<label id="todaytotals" value="" />
+					</panelchildren>
+				</panel>
+
+				
+             
+
+			</portalchildren>
+			<portalchildren width="300px">
+				<panel title="top 5 σημεία πωλήσεων εβδομάδας">
+					<panelchildren>
+					<groupbox>
+					<caption>
+                        Με κλικ άνοιγμα/κλείσιμο
+                     </caption>
+						<listbox mold="paging" pageSize="15" id="topdaysaleslist"></listbox>
+						</groupbox>
+						<button id="refreshtoppointofsales" tooltiptext="κλικ για ανανέωση" label="Ανανέωση" />
+					</panelchildren>
+				</panel>
+							
+				</portalchildren>
+			
+			<portalchildren width="300px">
+				<panel title="Ανενεργά σημεία πωλήσεων εβδομάδας">
+					<panelchildren>
+					<groupbox>
+					<caption>
+                        Με κλικ άνοιγμα/κλείσιμο
+                     </caption>
+						<listbox mold="paging" pageSize="15" id="inactivedaysaleslist"></listbox>
+						</groupbox>
+						<button id="refreshinactivepointofsales" tooltiptext="κλικ για ανανέωση" label="Ανανέωση" />
+					</panelchildren>
+				</panel>
+
+			</portalchildren>
+		</portallayout>
+	</window>
+</zk>

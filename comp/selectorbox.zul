@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hbox>
+    <bandbox id="bd" mold="rounded" autodrop="true" forward="onOpen=onRefresh,onCtrlKey=onKeyDown" ctrlKeys="#down">
+        <bandpopup>
+            <listbox id="selectorBrowser" height="300px" width="400px" forward="onSelect=onSelectionChanged,onClick=onSelectionChangedClick" >
+            </listbox>
+            <paging id="selectorPaging" forward="onPaging=onRefresh"></paging>
+            
+        </bandpopup>
+    </bandbox>
+    <toolbarbutton id="drillbutton"  image="/images/browser/binoculars.gif" />
+</hbox>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+    <bandbox hflex="true" id="bd" mold="rounded" autodrop="true" forward="onOpen=onRefresh,onCtrlKey=onKeyDown" ctrlKeys="#down">
+        <bandpopup hflex="true">
+			<vbox>
+			 	<zscript>    
+    				void onSelectDate() 
+    				{    
+    					java.text.SimpleDateFormat df=new java.text.SimpleDateFormat("dd/MM/yyyy");
+    					if (to.getValue()==null)
+    					{
+    						bd.setValue(">"+df.format(from.getValue()));
+    					}
+    					else
+    					{
+    						bd.setValue(df.format(from.getValue())+".."+df.format(to.getValue()));
+    					}
+    					bd.close();
+    				}	    
+    			</zscript> 
+    			<label value="From:"/>
+				<datebox id="from"></datebox>
+				<label value="To:"/>
+				<datebox id="to"></datebox>
+				<toolbarbutton id="selectbutton" onClick="onSelectDate()" label="Select"/>				
+			</vbox>            
+        </bandpopup>
+    </bandbox>
+    </window>

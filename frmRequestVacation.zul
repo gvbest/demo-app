@@ -1,0 +1,39 @@
+<?page contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window id="reqWin" border="normal" sizable="true" closable="true" width="400px" height="400px" title="Νέο Αίτημα Αδείας"  apply="com.eposit.controller.CtrlFrmRequestVacation"> 
+		<grid>
+			<rows>
+				<row>	
+					<label value="Είδος Αδείας:"/>
+					<selectbox id="vacationTypeSelectBox"
+							   model="${reqWin$composer.vacTypesModel}" width="100%">
+						<template name="model">
+							<label value="${each.type}"/>
+						</template>
+					</selectbox>
+				</row>
+				<row>
+					<label value="Ημέρα Έναρξης:"/>
+					<datebox id="startDatebox" format="dd/MM/yyyy" width="95%"/>
+				</row>
+				<row>
+					<label value="Ημέρα Λήξης:"/>
+					<datebox id="endDatebox" format="dd/MM/yyyy" width="95%"/>
+				</row>
+				<row>
+					<label value="Διάρκεια:"/>
+					<label id="durance"/>
+				</row>
+				<row>
+					<label value="Αιτιολογία:"/>
+					<textbox id="explanation" rows = "8"/>
+				</row>
+			</rows>	
+		</grid>
+		<space/>
+		<div align="center">
+			<button id="save" image="/images/form/ok.png" label="Kαταχώρηση"/>
+			<button id="cancel" image="/images/form/cancel.png" label="Ακύρωση"/>
+		</div>
+	</window>
+</zk>
